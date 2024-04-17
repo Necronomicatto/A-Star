@@ -2,12 +2,12 @@ class Node:
   def __init__(self, position, parent=None):
     self.position = position
     self.parent = parent
-    self.g = 0  # Cost from start to current node
-    self.h = 0  # Heuristic estimate of cost to goal
-    self.f = 0  # Total cost (g + h)
+    self.g = 0  #custo
+    self.h = 0  #est. heuristica
+    self.f = 0  #custo total
 
 def manhattan_distance(a, b):
-  # Heuristic function using Manhattan distance
+  # funcao usando manhattan
   return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 def a_star(grid, start, goal):
@@ -28,16 +28,16 @@ def a_star(grid, start, goal):
       while current:
         path.append(current.position)
         current = current.parent
-      return path[::-1]  # Reverse path for start to goal
+      return path[::-1]  #caminho
 
     for delta_row, delta_col in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
       new_position = (current.position[0] + delta_row, current.position[1] + delta_col)
-      if 0 <= new_position[0] < rows and 0 <= new_position[1] < cols and grid[new_position[0]][new_position[1]] != 1:  # Check for walls
+      if 0 <= new_position[0] < rows and 0 <= new_position[1] < cols and grid[new_position[0]][new_position[1]] != 1:  # vendo se tem obstaculos
         if new_position in closed_set:
           continue
 
         parent = current
-        g = current.g + 1  # Movement cost (adjust if needed)
+        g = current.g + 1  # custo de movimento)
         h = manhattan_distance(new_position, goal)
         f = g + h
 
@@ -49,9 +49,8 @@ def a_star(grid, start, goal):
         if new_node not in [node for node in open_set if node.position == new_position and node.f >= f]:
           open_set.append(new_node)
 
-  return None  # No path found
+  return None 
 
-# Example usage
 grid = [
   [0, 0, 1, 0],
   [0, 0, 1, 0],
